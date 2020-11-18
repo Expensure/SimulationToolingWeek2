@@ -1,7 +1,6 @@
 from Statemachine import StateMachine
 
-positive_adjectives = ["great","super", "fun", "entertaining", "easy"]
-negative_adjectives = ["boring", "difficult", "ugly", "bad"]
+opstopredenen = ["great","super", "fun", "entertaining", "easy"]
 
 def start_transitions(txt):
     splitted_txt = txt.split(None,1)
@@ -28,10 +27,10 @@ def opweg_state_transitions(txt):
     situatie, txt = splitted_txt if len(splitted_txt) > 1 else (txt,"")
     if situatie == "not":
         newState = "not_state"
-    elif situatie in positive_adjectives:
-        newState = "pos_state"
-    elif situatie in negative_adjectives:
-        newState = "neg_state"
+    elif situatie in opstopredenen:
+        newState = "Op weg"
+    elif situatie == "uit garage":
+        newState = "Slagboom"
     else:
         newState = "error_state"
     return (newState, txt)
@@ -39,10 +38,8 @@ def opweg_state_transitions(txt):
 def geparkeerd_state_transitions(txt):
     splitted_txt = txt.split(None,1)
     situatie, txt = splitted_txt if len(splitted_txt) > 1 else (txt,"")
-    if situatie in positive_adjectives:
-        newState = "neg_state"
-    elif situatie in negative_adjectives:
-        newState = "pos_state"
+    if situatie == "rijden":
+        newState = "Op weg"
     else:
         newState = "error_state"
     return (newState, txt)
