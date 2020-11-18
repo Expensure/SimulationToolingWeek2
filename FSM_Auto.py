@@ -5,41 +5,43 @@ negative_adjectives = ["boring", "difficult", "ugly", "bad"]
 
 def start_transitions(txt):
     splitted_txt = txt.split(None,1)
-    word, txt = splitted_txt if len(splitted_txt) > 1 else (txt,"")
-    if word == "Python":
-        newState = "Python_state"
+    situatie, txt = splitted_txt if len(splitted_txt) > 1 else (txt,"")
+    if situatie == "kaart pakken":
+        newState = "Poort"
     else:
-        newState = "error_state"
+        newState = "Error"
     return (newState, txt)
 
-def python_state_transitions(txt):
+def poort_state_transitions(txt):
     splitted_txt = txt.split(None,1)
-    word, txt = splitted_txt if len(splitted_txt) > 1 else (txt,"")
-    if word == "is":
-        newState = "is_state"
+    situatie, txt = splitted_txt if len(splitted_txt) > 1 else (txt,"")
+    if situatie == "rijden":
+        newState = "Op weg"
+    elif situatie == "parkeren":
+        newState = "Geparkeerd"
     else:
-        newState = "error_state"
+        newState = "Error"
     return (newState, txt)
 
-def is_state_transitions(txt):
+def opweg_state_transitions(txt):
     splitted_txt = txt.split(None,1)
-    word, txt = splitted_txt if len(splitted_txt) > 1 else (txt,"")
-    if word == "not":
+    situatie, txt = splitted_txt if len(splitted_txt) > 1 else (txt,"")
+    if situatie == "not":
         newState = "not_state"
-    elif word in positive_adjectives:
+    elif situatie in positive_adjectives:
         newState = "pos_state"
-    elif word in negative_adjectives:
+    elif situatie in negative_adjectives:
         newState = "neg_state"
     else:
         newState = "error_state"
     return (newState, txt)
 
-def not_state_transitions(txt):
+def geparkeerd_state_transitions(txt):
     splitted_txt = txt.split(None,1)
-    word, txt = splitted_txt if len(splitted_txt) > 1 else (txt,"")
-    if word in positive_adjectives:
+    situatie, txt = splitted_txt if len(splitted_txt) > 1 else (txt,"")
+    if situatie in positive_adjectives:
         newState = "neg_state"
-    elif word in negative_adjectives:
+    elif situatie in negative_adjectives:
         newState = "pos_state"
     else:
         newState = "error_state"
